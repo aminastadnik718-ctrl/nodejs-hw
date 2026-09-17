@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import cors from 'cors';
 import express from 'express';
-
+import { errors as celebrateErrors } from 'celebrate';
 import { connectMongoDB } from './db/connectMongoDB.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { logger } from './middleware/logger.js';
@@ -19,6 +19,7 @@ app.use(cors());
 app.use(notesRoutes);
 
 app.use(notFoundHandler);
+app.use(celebrateErrors());
 app.use(errorHandler);
 
 const startServer = async () => {
