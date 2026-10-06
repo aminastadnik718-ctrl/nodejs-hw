@@ -6,16 +6,24 @@ const userSchema = new Schema(
       type: String,
       trim: true,
     },
+
     email: {
       type: String,
       required: true,
       unique: true,
       trim: true,
     },
+
     password: {
       type: String,
       required: true,
       minlength: 8,
+    },
+
+    avatar: {
+      type: String,
+      default:
+        'https://ac.goit.global/fullstack/react/default-avatar.jpg',
     },
   },
   {
@@ -32,9 +40,7 @@ userSchema.methods.toJSON = function () {
 };
 
 userSchema.pre('save', function () {
-  if (!this.username) {
-    this.username = this.email;
-  }
+  this.username = this.email;
 });
 
 export const User = model('User', userSchema);
